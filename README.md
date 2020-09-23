@@ -71,7 +71,7 @@ ACT41908.1;yaaA      5681    6457    -       peroxide resistance protein%2C lowe
 
 Note that multi-chromosome genomes are not supported by this pipeline, as chromosome names are not included in this annotation file.
 
-**Output prefix (-o)**
+**Output prefix (-o)**. Specific names for the four output files can also be given explicitly using flags -otar, -oman, -otmptar, and -tmpman (respectively, primary output tarball, primary output manifest, intermediate output tarball, intermedia output manifest)
 
 ### Optional inputs
 
@@ -115,29 +115,106 @@ In general, shorter seeds will provide more sensitive alignments, and will work 
 
 ```generate_master.sh```
 
+### Outputs
+
+This tool generates a master file based on specific treatment vs control contrasts, using results from riboseq processing with the 'Riboseq Sample Processing' tool.
+
+Master file format:
+
+```
+GeneID_Treated	Position	codon_relative_rpm	codon_rpm	codon_count	codon_raw_density	GeneID_WT	Position[]	codon_relative_rpm	codon_rpm	codon_count	codon_raw_density	fd_codon_relative_rpm	fd_codon_rpm	fd_codon_count	fd_codon_raw_density	start_AA_cordinate	end_AA_cordinate	seq	rev_comp	AA	gene_start	gene_end
+ACT43504.1;lpp	1702921	0.874999999997478	4337.49870908	42	42	ACT43504.1;lpp	1702921	0.666666666664663	1108.92065057	18	18	1.31250000000016	3.91145994697679	2.33333333333333	2.33333333333333	1702894	1702926	CTGGACAACATGGCTACTAAATACCGCAAGAAG		LDNMATKYRKK	1702690	1702926
+ACT43504.1;lpp	1702744	0.0721153846151965	1549.10668182	15	15	ACT43504.1;lpp	1702744	0.0199999999998701	616.06702809	10	10	3.60576923078324	2.51450996594107	1.5	1.5	1702717	1702749	GCGGTAATCCTGGGTTCTACTCTGCTGGCAGGT		AVILGSTLLAG	1702690	1702926
+ACT43504.1;lpp	1702843	0.0240384615383988	516.36889394	5	5	ACT43504.1;lpp	1702843	0.031999999999987	985.70724495	16	16	0.751201923075268	0.5238562429012	0.3125	0.3125	1702816	1702848	CAGCTGAGCAACGACGTGAACGCAATGCGTTCC		QLSNDVNAMRS	1702690	1702926
+```
+
+### Required inputs
+
+**Control and Treatment sample manifests (-m1 and -m2)** These are the manifest output files for the primary outputs of the 'Riboseq Sample Processing' tool. They should have the follow file types in them (third column):
+
+```
+Gene_counts
+Gene_posRPM
+Gene_negRPM
+```
+
+**Control and Treatment sample names (-i1 and -i2)** The name of the control and treatment samples. These should match the sample names in the second column of the manifests.
+
+The output master file will calculate fold-changes as treatment/control.
+
+**Reference genome fasta file (-G)** Reference genome in fasta format.
+
+**Reference annotation file (-A)** Gene annotations for your genome.
+
+### Optional inputs
+
+**Cutoff threshold for common genes (-c)** Minimum coverage threshold to include a gene in the master file, across both samples.
+
+**Cutoff threshold for master file, control or treatment sample (-c1 and -c2)** Minimum codon coverage threshold (counts per codon) to include a codon in the master file, controlled separately for control or treatment samples.
+
 
 
 ## RNA-seq processing
 
 ```rna-seq_sample_processing.sh```
 
-
+Inputs and outputs for this tool are identical to ribo-seq_sample_processing.sh, with the exception of flags -Poff, -Pmin, and -Pmax, which do not exist for this tool.
 
 ## Extract files from TAR outputs
 
 ```extract_from_tar.sh```
 
-
-
-# SUPPORTING FILE FORMATS
-
+Extract specific files from a tar manifest. Basically a simple wrapper for tar -xf.
 
 # INSTALLATION
 
+To install, please download all scripts in this repository, e.g., with git clone. All supporting scripts noted below are expected to be in the same directory as the main analysis scripts described above.
+
+Please also install the following software package and configure your PATH variable to include them.
 
 ## DEPENDENCIES
 
+[bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) (and bowtie2-build)
+
+[samtools](http://www.htslib.org/download/) (v 1.x)
+
+[bedtools](https://bedtools.readthedocs.io/en/latest/content/installation.html)
+
+wigToBigWig and bedGraphToBigWig from [UCSC](http://hgdownload.soe.ucsc.edu/admin/exe/) (browse to your Linux or Mac distribution to download these binaries).
 
 ## SUPPORTING SCRIPTS
+
+The following scripts have been provided by collaborators, adapted from this reference:
+
+Oh, E., Becker, A.H., Sandikci, A., Huber, D., Chaba, R., Gloge, F., Nichols, R.J., Typas, A., Gross, C.A., Kramer, G., et al. (2011). Selective ribosome profiling reveals the cotranslational chaperone action of trigger factor in vivo. Cell 147, 1295-1308.
+
+Some have been minimally edited, but otherwise used as-is in the above pipelies. The pipelines above expect them to be in the same execution directoy as the pipeline.
+
+```
+assignCount3prime_flexible.py
+BAM_To_AssignCount_input_format.pl
+codon_rpm.pl
+common_genes.pl
+final.pl
+fold_change_master_flexible.pl
+GeneCount.py
+rpm.pl
+```
+
+These scripts I have written, and are used internally in the pipeline. Some details:
+
+```
+hard_trim.sh
+```
+
+Very simple script to hard trim a given number of bases from the beginning or end of reads in fastq file.
+
+```
+split_fastq_by_barcode_in_read.pl
+```
+
+Demultiplexes a fastq file based on barcode sequences that are expected to be in the 3' position of each read. Can demultiplex a paired-end library, but demultiplexing is based on parsing R1.
+
+Run without arguments to see usage.
 
 
