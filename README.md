@@ -230,16 +230,19 @@ Run without arguments to see usage.
 
 ## PRACTICE DATA
 
-Sample inputs and outputs are provided in the 'practice_data' folder. Command used to generate the outputs (executed within the 'practice_data' folder):
+Sample inputs and outputs are provided in the 'practice_data' folder. Command used to generate the outputs were executed within the 'practice_data' folder, so we give ```-path ../``` to indicate that the script should look in the parent folder for the various perl and python helper scripts. It will also look in your PATH.
 
 1) Run riboseq pipeline. Note that the input.fastq.gz file has 2 samples multiplexed in it, named Sample1 and Sample2, so the output of this command includes data for both.
 
+```
 ../ribo-seq_sample_processing.sh -path ../ -f input.fastq.gz -b barcodes.txt -G reference.fasta -A annotation.txt -o output -F filter.fasta > output.log
+```
 
 2) Generate master file comparing Sample1 to Sample2. We give the same manifest twice because both samples are from the same run, but if you had samples from different runs, you would give different manifests.
 
+```
 ../generate_master.sh -path ../ -i1 Sample1 -i2 Sample2 -m1 output.manifest.txt -m2 output.manifest.txt -G reference.fasta -A annotation.txt -o masterfile.txt
-
+```
 
 
 
