@@ -4,15 +4,21 @@ Pipelines for Riboseq and RNA-seq profiling in prokaryotic systems.
 
 # INSTALLATION
 
-In addition to the scripts in this repository, the following third-party open source tools are required. These should be installed on your system, and you will need to set up your environment (PATH variable) to include them:
-
-1) bowtie2 (http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
-2) samtools (http://www.htslib.org/download/)
-3) wigToBigWig (Download binaries from http://hgdownload.soe.ucsc.edu/admin/exe/ – click on your system, then search for "wigToBigWig")
-
-Executable scripts provided will also require Python (as 'python', rather than 'python3'), Perl, and Bash.
+To install, please download all scripts in this repository, e.g., with git clone. These scripts provided will also require Python (as 'python', rather than 'python3'), Perl, and Bash interpreters.
 
 Otherwise this script will also use common linux utilities, such as echo, awk, cat, gzip, and sed.
+
+Please also install the following software package and configure your PATH variable to include them.
+
+## DEPENDENCIES
+
+[bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) (and bowtie2-build)
+
+[samtools](http://www.htslib.org/download/) (v 1.x)
+
+[bedtools](https://bedtools.readthedocs.io/en/latest/content/installation.html)
+
+wigToBigWig and bedGraphToBigWig from [UCSC](http://hgdownload.soe.ucsc.edu/admin/exe/) (browse to your Linux or Mac distribution to download these binaries).
 
 # USAGE
 
@@ -176,22 +182,6 @@ Inputs and outputs for this tool are identical to ribo-seq_sample_processing.sh,
 ```extract_from_tar.sh```
 
 Extract specific files from a tar manifest. Basically a simple wrapper for tar -xf.
-
-# INSTALLATION
-
-To install, please download all scripts in this repository, e.g., with git clone. All supporting scripts noted below are expected to be in the same directory as the main analysis scripts described above.
-
-Please also install the following software package and configure your PATH variable to include them.
-
-## DEPENDENCIES
-
-[bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) (and bowtie2-build)
-
-[samtools](http://www.htslib.org/download/) (v 1.x)
-
-[bedtools](https://bedtools.readthedocs.io/en/latest/content/installation.html)
-
-wigToBigWig and bedGraphToBigWig from [UCSC](http://hgdownload.soe.ucsc.edu/admin/exe/) (browse to your Linux or Mac distribution to download these binaries).
 
 ## SUPPORTING SCRIPTS
 
