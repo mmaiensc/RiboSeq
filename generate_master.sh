@@ -16,7 +16,6 @@ ref_genome=""
 ref_annotation=""
 out=""
 outmaster=""
-outtmp=""
 
 # options
 # gene list cutoff
@@ -39,8 +38,7 @@ usage="USAGE:
 	-G  reference genome file (fasta)
 	-A  reference annotation file
 	    format: [ID] [start] [end] [strand] [name]
-	-o  output file
-	    intermediate files will be stored in [out].tmp.tar.gz
+	-o  output file (tab-delimited text)
 
 	OPTIONAL:
 	-c  cutoff threshold for common_genes (default $cutoff)

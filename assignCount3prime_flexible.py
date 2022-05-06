@@ -40,7 +40,7 @@ def assignCount(distance,filename,minbound,maxbound):
                        fields[4], int(fields[5]))
         if x.uniqueness==1 and minbound<x.length<maxbound and x.mismatch<3:
             if x.strand=='+':
-            	i=x.fiveprime+x.length-1-int(distance)
+                i=x.fiveprime+x.length-1-int(distance)
                 if i in forward:
                 	forward[i][0]+=1.0
                 	forward[i][1]+=1
@@ -128,8 +128,8 @@ if __name__ == '__main__':
 	o3=sys.argv[5]
 	o4=sys.argv[6]
 	dist=sys.argv[1]
-        minbound=int(sys.argv[7])
-        maxbound=int(sys.argv[8])
+	minbound=int(sys.argv[7])
+	maxbound=int(sys.argv[8])
 	writeFiles(dist,file,o1,o2,o3,o4,minbound,maxbound)
 	
     ### Change these variables as desired ###

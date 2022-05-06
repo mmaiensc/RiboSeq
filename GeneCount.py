@@ -62,10 +62,10 @@ def geneCount(filenameForward,filenameReverse,genelist):
     f=open(genelist,'r')
     for line in f:
         fields=line.split('\t')
-	if fields[3]=='-' and (fields[1]>fields[2]):
-		temp_swap=fields[1]
-		fields[1]=fields[2]
-		fields[2]=temp_swap
+        if fields[3]=='-' and (fields[1]>fields[2]):
+                temp_swap=fields[1]
+                fields[1]=fields[2]
+                fields[2]=temp_swap
         x=GeneAnnotation(fields[0], int(fields[1]), int(fields[2]), fields[3], \
                          fields[4].rstrip('\n'))
         if x.strand=='+':
@@ -132,9 +132,9 @@ if __name__=='__main__':
 #     ### path='/home/pkanabar/k/analysis/bowtie_mapping_MG1655/mapping/trial_genecout01A'
 #     glist='/home/pkanabar/k/reference/CDS_From_Eugene/'+genome
 #     rawdata1=path+'/assignCount/'+readout
-# 	
-# 	
-# 	
+#         
+#         
+#         
 #     ### Execute ###
 #     output=path+'/Genecount01A/individualAnalysis/'+readout+'_IA'
 #     norm=path+'/Genecount01A/normalizationFactor/'+readout+'_N'

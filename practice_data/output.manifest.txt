@@ -1,0 +1,14 @@
+output.results.tar.gz	All	tar.gz
+output.demultiplexing_report.txt	All	Report
+outputSample1.stats.txt	Sample1	Stats
+outputSample1.genes.txt	Sample1	Gene_counts
+outputSample1.posRPM.txt	Sample1	Gene_posRPM
+outputSample1.negRPM.txt	Sample1	Gene_negRPM
+outputSample1.posRPM.bw	Sample1	pos_bw
+outputSample1.negRPM.bw	Sample1	neg_bw
+outputSample2.stats.txt	Sample2	Stats
+outputSample2.genes.txt	Sample2	Gene_counts
+outputSample2.posRPM.txt	Sample2	Gene_posRPM
+outputSample2.negRPM.txt	Sample2	Gene_negRPM
+outputSample2.posRPM.bw	Sample2	pos_bw
+outputSample2.negRPM.bw	Sample2	neg_bw

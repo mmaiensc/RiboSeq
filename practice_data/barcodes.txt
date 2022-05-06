@@ -1,0 +1,2 @@
+ATCGT	Sample1
+GATCA	Sample2

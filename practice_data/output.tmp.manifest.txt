@@ -1,0 +1,40 @@
+output.tmp.tar.gz	All	tar.gz
+output.genome.fa	Reference	Genome fasta
+output.filter.fa	Reference	Filter fasta
+output.genome.1.bt2	Reference	Genome
+output.genome.2.bt2	Reference	Genome
+output.genome.3.bt2	Reference	Genome
+output.genome.4.bt2	Reference	Genome
+output.genome.rev.1.bt2	Reference	Genome
+output.genome.rev.2.bt2	Reference	Genome
+output.filter.1.bt2	Reference	Filter
+output.filter.2.bt2	Reference	Filter
+output.filter.3.bt2	Reference	Filter
+output.filter.4.bt2	Reference	Filter
+output.filter.rev.1.bt2	Reference	Filter
+output.filter.rev.2.bt2	Reference	Filter
+output.genome.fa.fai	Reference	Fasta index
+outputSample1_R1.fastq.gz	Sample1	fastq
+outputSample1.trim.fastq.gz	Sample1	fastq-trimmed
+outputSample1.filter.fastq.gz	Sample1	fastq-filtered
+outputSample1.bam	Sample1	BAM
+outputSample1.assignCount.txt	Sample1	AssignCount
+outputSample1.posCount.txt	Sample1	Psite-posCount
+outputSample1.negCount.txt	Sample1	Psite-negCount
+outputSample1.nuclBias.txt	Sample1	Psite-nuclBias
+outputSample1.lengthDist.txt	Sample1	Psite-lengthDist
+outputSample1.genesNorm.txt	Sample1	Gene_norm
+outputSample1.posRPM.wig	Sample1	pos_wig
+outputSample1.negRPM.wig	Sample1	neg_wig
+outputSample2_R1.fastq.gz	Sample2	fastq
+outputSample2.trim.fastq.gz	Sample2	fastq-trimmed
+outputSample2.filter.fastq.gz	Sample2	fastq-filtered
+outputSample2.bam	Sample2	BAM
+outputSample2.assignCount.txt	Sample2	AssignCount
+outputSample2.posCount.txt	Sample2	Psite-posCount
+outputSample2.negCount.txt	Sample2	Psite-negCount
+outputSample2.nuclBias.txt	Sample2	Psite-nuclBias
+outputSample2.lengthDist.txt	Sample2	Psite-lengthDist
+outputSample2.genesNorm.txt	Sample2	Gene_norm
+outputSample2.posRPM.wig	Sample2	pos_wig
+outputSample2.negRPM.wig	Sample2	neg_wig

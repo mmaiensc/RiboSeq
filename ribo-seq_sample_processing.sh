@@ -333,7 +333,7 @@ fi
 $samtools faidx $ref_genome
 check_file "$ref_genome.fai" "tmp" "Reference" "Fasta index"
 # make 1 bigger to fit an extra base
-awk -F "\t" '{OFS="\t"; $2++; print }' < $ref_genome.fai > $ref_genome.tmp && mv $ref_genome.tmp $ref_genome.fa
+awk -F "\t" '{OFS="\t"; $2++; print }' < $ref_genome.fai > $ref_genome.tmp && mv $ref_genome.tmp $ref_genome.fai
 gname=$(head -1 $ref_genome | cut -f1 -d ' ' | sed 's/>//')
 
 # demultiplexing
