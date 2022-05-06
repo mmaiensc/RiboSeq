@@ -2,6 +2,18 @@
 
 Pipelines for Riboseq and RNA-seq profiling in prokaryotic systems.
 
+# INSTALLATION
+
+In addition to the scripts in this repository, the following third-party open source tools are required. These should be installed on your system, and you will need to set up your environment (PATH variable) to include them:
+
+1) bowtie2 (http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
+2) samtools (http://www.htslib.org/download/)
+3) wigToBigWig (Download binaries from http://hgdownload.soe.ucsc.edu/admin/exe/ – click on your system, then search for "wigToBigWig")
+
+Executable scripts provided will also require Python (as 'python', rather than 'python3'), Perl, and Bash.
+
+Otherwise this script will also use common linux utilities, such as echo, awk, cat, gzip, and sed.
+
 # USAGE
 
 NOTE: for all tools, run with no arguments to see usage information.
@@ -110,7 +122,6 @@ In general, shorter seeds will provide more sensitive alignments, and will work 
 **Specify alternate path to look for dependencies in (-path)**
 
 
-
 ## Generate master table
 
 ```generate_master.sh```
@@ -216,5 +227,19 @@ split_fastq_by_barcode_in_read.pl
 Demultiplexes a fastq file based on barcode sequences that are expected to be in the 3' position of each read. Can demultiplex a paired-end library, but demultiplexing is based on parsing R1.
 
 Run without arguments to see usage.
+
+## PRACTICE DATA
+
+Sample inputs and outputs are provided in the 'practice_data' folder. Command used to generate the outputs (executed within the 'practice_data' folder):
+
+1) Run riboseq pipeline. Note that the input.fastq.gz file has 2 samples multiplexed in it, named Sample1 and Sample2, so the output of this command includes data for both.
+
+../ribo-seq_sample_processing.sh -path ../ -f input.fastq.gz -b barcodes.txt -G reference.fasta -A annotation.txt -o output -F filter.fasta > output.log
+
+2) Generate master file comparing Sample1 to Sample2. We give the same manifest twice because both samples are from the same run, but if you had samples from different runs, you would give different manifests.
+
+../generate_master.sh -path ../ -i1 Sample1 -i2 Sample2 -m1 output.manifest.txt -m2 output.manifest.txt -G reference.fasta -A annotation.txt -o masterfile.txt
+
+
 
 
