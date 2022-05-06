@@ -2,6 +2,16 @@
 
 Pipelines for Riboseq and RNA-seq profiling in prokaryotic systems.
 
+# INSTALLATION
+
+In addition to the scripts in this repository, the following third-party open source tools are required. These should be installed on your system, and you will need to set up your environment (PATH variable) to include them:
+
+1) bowtie2 (http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
+2) samtools (http://www.htslib.org/download/)
+3) wigToBigWig (Download binaries from http://hgdownload.soe.ucsc.edu/admin/exe/ – click on your system, then search for "wigToBigWig")
+
+Otherwise this script will also use common linux utilities, such as echo, awk, cat, gzip, and sed.
+
 # USAGE
 
 NOTE: for all tools, run with no arguments to see usage information.
