@@ -185,11 +185,13 @@ Extract specific files from a tar manifest. Basically a simple wrapper for tar -
 
 ## SUPPORTING SCRIPTS
 
-The following scripts have been provided by collaborators, adapted from this reference:
+The following scripts are called internally by the pipeline scripts noted above. They are expected to be in the same execution directory as the main pipeline script.
+
+These have been provided by collaborators, adapted from this reference:
 
 Oh, E., Becker, A.H., Sandikci, A., Huber, D., Chaba, R., Gloge, F., Nichols, R.J., Typas, A., Gross, C.A., Kramer, G., et al. (2011). Selective ribosome profiling reveals the cotranslational chaperone action of trigger factor in vivo. Cell 147, 1295-1308.
 
-Some have been minimally edited, but otherwise used as-is in the above pipelies. The pipelines above expect them to be in the same execution directoy as the pipeline.
+Some have been minimally edited, but otherwise used as-is in the above pipelines (i.e. I didn't write or design them). 
 
 ```
 assignCount3prime_flexible.py
@@ -202,7 +204,7 @@ GeneCount.py
 rpm.pl
 ```
 
-These scripts I have written, and are used internally in the pipeline. Some details:
+These scripts I have written, and are used internally in the pipelines. Some details:
 
 ```
 hard_trim.sh
