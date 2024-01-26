@@ -220,6 +220,16 @@ fi
 # get directories of the manifests
 out_dir=$(cd $(dirname $out) && pwd -P)
 
+# add absolute path to out
+if [[ "$out" != "/"* ]]; then
+        base=$(basename $out)
+        out="$out_dir/$base"
+        out_manifest="$out.manifest.txt"
+        tmp_manifest="$out.tmp.manifest.txt"
+        out_tar="$out.results.tar.gz"
+        tmp_tar="$out.tmp.tar.gz"
+fi
+
 out_tar_base=$(basename $out_tar)
 tmp_tar_base=$(basename $tmp_tar)
 
