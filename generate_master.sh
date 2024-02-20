@@ -23,6 +23,8 @@ cutoff=100
 # cutoffs for master file
 cutoff1=5
 cutoff2=5
+# how to normalize codons
+norm='segment'
 
 clean="y"
 path=""
@@ -44,6 +46,8 @@ usage="USAGE:
 	-c  cutoff threshold for common_genes (default $cutoff)
 	-c1 cutoff threshold for master file, sample 1 (default $cutoff1)
 	-c2 cutoff threshold for master file, sample 2 (default $cutoff2)
+	-norm do codon RPM relative to the whole gene, or segmented by first
+	      10 codons, last 10 codons, and in between ('all' or 'segment', default $norm)
 
 	-clean remove intermediate files (y or n, default $clean)
 
@@ -96,6 +100,10 @@ for (( i=1; i<= $#; i++)); do
 			cutoff2="$val"
 			i=$j
 			;;
+		"-norm")
+			norm="$val"
+			i=$j
+			;;
 		"-clean")
 			clean="$val"
 			i=$j
@@ -138,6 +146,15 @@ fi
 if [ "$ref_annotation" = "" ]; then
 	echo -e "Error: set -A\n$usage"
 	exit 1
+fi
+if [ "$norm" != "segment" ] && [ "$norm" != "all" ]; then
+	echo -e "Error: set -norm to be 'segment' or 'all'\n$usage"
+	exit 1
+fi
+if [ "$norm" = "segment" ]; then
+	do_segment="y"
+else
+	do_segment="n"
 fi
 
 # check that manifests exist
@@ -272,11 +289,11 @@ $common_genes $genes1 $genes2 $cutoff 5 $tmp/genes.list
 echo -e "# Computing codon RPMs"
 codon_pos1=$(get_file $manifest1 $tar1 $in1 "Gene_posRPM")
 codon_neg1=$(get_file $manifest1 $tar1 $in1 "Gene_negRPM")
-$codon_rpm $codon_pos1 $codon_neg1 $ref_annotation $tmp/genes.list $tmp/codonPosRPM1.txt $tmp/codonNegRPM1.txt
+$codon_rpm $codon_pos1 $codon_neg1 $ref_annotation $tmp/genes.list $tmp/codonPosRPM1.txt $tmp/codonNegRPM1.txt $do_segment
 
 codon_pos2=$(get_file $manifest2 $tar2 $in2 "Gene_posRPM")
 codon_neg2=$(get_file $manifest2 $tar2 $in2 "Gene_negRPM")
-$codon_rpm $codon_pos2 $codon_neg2 $ref_annotation $tmp/genes.list $tmp/codonPosRPM2.txt $tmp/codonNegRPM2.txt
+$codon_rpm $codon_pos2 $codon_neg2 $ref_annotation $tmp/genes.list $tmp/codonPosRPM2.txt $tmp/codonNegRPM2.txt $do_segment
 
 # make master file
 echo -e "# Making master tables"

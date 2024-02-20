@@ -15,6 +15,13 @@ my $gene_pair = $ARGV[3];
 my $OUT1=$ARGV[4];
 my $OUT2=$ARGV[5];
 
+# toggle whether to do codon RPM for first 10 codons, last 10, and whole gene (default)
+# or to do it uniformly for the whole gene
+my $segment_normalization = $ARGV[6];
+if( $segment_normalization ne "y" ){
+	$segment_normalization = "n";
+}
+
 
 ##Step1 : Read in RPM file for the forward strand
 ##Step2 : Read in RPM file for the reverse strand 
@@ -112,7 +119,7 @@ sub get_geneList{
 			$datum[2] = $swap ;
 			}
 			### Check what is the length of the gene
-			if( ($datum[1] - $datum[2]) <= 60){
+			if( ($datum[1] - $datum[2]) <= 60 || $segment_normalization eq "n"){
 				## for short gene : whole gene is our gene range.
 				$range_genes{$datum[0]} = $datum[3] . "\t" . $datum[2]  . "_" . $datum[1] ;
 			}
@@ -136,7 +143,7 @@ sub get_geneList{
 				#print("$datum[0]\t$datum[3]\t$r1_range\t$r2_range\t$r3_range\t$gene_length\n");
 			}		
 	}elsif($datum[3] eq '+'){
-			if( ($datum[2] - $datum[1]) <= 60){
+			if( ($datum[2] - $datum[1]) <= 60 || $segment_normalization eq "n"){
 				$range_genes{$datum[0]} = $datum[3] ."\t".  $datum[1] .  "_" . $datum[2];
 			}
 			else {
