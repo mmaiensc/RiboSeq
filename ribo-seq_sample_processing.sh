@@ -238,24 +238,26 @@ if [ "$out" = "" ]; then
 fi
 
 # get directories of the manifests
-out_dir=$(cd $(dirname $out) && pwd -P)
 
 # add absolute path to out
 if [[ "$out" != "/"* ]]; then
+	out_dir=$(cd $(dirname $out) && pwd -P)
 	base=$(basename $out)
 	out="$out_dir/$base"
 	out_manifest="$out.manifest.txt"
 	tmp_manifest="$out.tmp.manifest.txt"
 	out_tar="$out.results.tar.gz"
 	tmp_tar="$out.tmp.tar.gz"
+else
+	out_dir=$(dirname $out)
 fi
 
 out_tar_base=$(basename $out_tar)
 tmp_tar_base=$(basename $tmp_tar)
 
 # start output manifests
-echo -e "$out_tar\tAll\ttar.gz" | sed "s!$out_dir/!!g" > $out_manifest
-echo -e "$tmp_tar\tAll\ttar.gz" | sed "s!$out_dir/!!g" > $tmp_manifest
+echo -e "$out_tar_base\tAll\ttar.gz" | sed "s!$out_dir/!!g" > $out_manifest
+echo -e "$tmp_tar_base\tAll\ttar.gz" | sed "s!$out_dir/!!g" > $tmp_manifest
 
 
 
