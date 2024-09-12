@@ -8,7 +8,7 @@
 ######################################
 # for help, see:
 # https://github.com/mmaiensc/RiboSeq/wiki/Extracting-files-from-tar-archives
-DATADIR="/projects/psci_shura/riboseq/data"
+DATADIR="/projects/psci_shura_chi/riboseq/data"
 # required
 TAR="riboseq_practice.results.tar.gz"
 WANTED_FILE="riboseq_practiceSample1.stats.txt"
@@ -28,7 +28,7 @@ fi
 echo "Job was submitted from: " $SLURM_SUBMIT_DIR
 
 # paths to scripts, data, outputs
-SCRIPTDIR="/projects/psci_shura/riboseq/RiboSeq"
+SCRIPTDIR="/projects/psci_shura_chi/riboseq/RiboSeq"
 
 # run command
 $SCRIPTDIR/extract_from_tar.sh $DATADIR/$TAR $WANTED_FILE $DATADIR/$OUTPUT_NAME &> $DATADIR/$OUTPUT_NAME.log

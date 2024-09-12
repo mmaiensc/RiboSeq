@@ -8,7 +8,7 @@
 ######################################
 # for help, see:
 # https://github.com/mmaiensc/RiboSeq/wiki/Generating-master-files
-DATADIR="/projects/psci_shura/riboseq/data"
+DATADIR="/projects/psci_shura_chi/riboseq/data"
 # required
 CONTROL_MANIFEST="riboseq_practice.manifest.txt"
 TREATMENT_MANIFEST="riboseq_practice.manifest.txt"
@@ -39,7 +39,7 @@ fi
 echo "Job was submitted from: " $SLURM_SUBMIT_DIR
 
 # paths to scripts, data, outputs
-SCRIPTDIR="/projects/psci_shura/riboseq/RiboSeq"
+SCRIPTDIR="/projects/psci_shura_chi/riboseq/RiboSeq"
 
 module purge
 module load SAMtools &> /dev/null

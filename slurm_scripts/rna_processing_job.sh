@@ -8,7 +8,7 @@
 ######################################
 # for help, see:
 # https://github.com/mmaiensc/RiboSeq/wiki/RNA-seq-profiling
-DATADIR="/projects/psci_shura/riboseq/data"
+DATADIR="/projects/psci_shura_chi/riboseq/data"
 # required
 DATA="practice.fastq.gz"
 BARCODES="practice_barcodes.txt"
@@ -41,7 +41,7 @@ fi
 echo "Job was submitted from: " $SLURM_SUBMIT_DIR
 
 # paths to scripts, data, outputs
-SCRIPTDIR="/projects/psci_shura/riboseq/RiboSeq"
+SCRIPTDIR="/projects/psci_shura_chi/riboseq/RiboSeq"
 
 # modules
 module purge
