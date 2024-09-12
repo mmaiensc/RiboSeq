@@ -15,14 +15,14 @@
 # Sample Sample1
 #
 # Hard trim for Sample1: 2 from 5', 5 from 3'
-# Filtering against filter reference output.filter.fa with seed 10
+# Filtering against filter reference /mmfs1/home/mmaiensc/RiboSeq/practice_data/output.filter.fa with seed 10
 22400 reads; of these:
   22400 (100.00%) were unpaired; of these:
     21397 (95.52%) aligned 0 times
     394 (1.76%) aligned exactly 1 time
     609 (2.72%) aligned >1 times
 4.48% overall alignment rate
-# Genome alignment to output.genome.fa with seed 18
+# Genome alignment to /mmfs1/home/mmaiensc/RiboSeq/practice_data/output.genome.fa with seed 18
 21397 reads; of these:
   21397 (100.00%) were unpaired; of these:
     972 (4.54%) aligned 0 times
@@ -33,22 +33,22 @@
 # Assigning p-site based on cutoff 15, for reads from 24 to 46
 # Generating counts per gene
 # RPM normalization
-outputSample1.posCount.txt	outputSample1.posRPM.txt	********************outputSample1.posRPM.wig
-outputSample1.negCount.txt	outputSample1.negRPM.txt	********************outputSample1.negRPM.wig
+/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample1.posCount.txt	/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample1.posRPM.txt	********************/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample1.posRPM.wig
+/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample1.negCount.txt	/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample1.negRPM.txt	********************/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample1.negRPM.wig
 # Converting wig to bigWig
 
 #
 # Sample Sample2
 #
 # Hard trim for Sample2: 2 from 5', 5 from 3'
-# Filtering against filter reference output.filter.fa with seed 10
+# Filtering against filter reference /mmfs1/home/mmaiensc/RiboSeq/practice_data/output.filter.fa with seed 10
 21825 reads; of these:
   21825 (100.00%) were unpaired; of these:
     15947 (73.07%) aligned 0 times
     1780 (8.16%) aligned exactly 1 time
     4098 (18.78%) aligned >1 times
 26.93% overall alignment rate
-# Genome alignment to output.genome.fa with seed 18
+# Genome alignment to /mmfs1/home/mmaiensc/RiboSeq/practice_data/output.genome.fa with seed 18
 15947 reads; of these:
   15947 (100.00%) were unpaired; of these:
     988 (6.20%) aligned 0 times
@@ -59,6 +59,6 @@ outputSample1.negCount.txt	outputSample1.negRPM.txt	********************outputSa
 # Assigning p-site based on cutoff 15, for reads from 24 to 46
 # Generating counts per gene
 # RPM normalization
-outputSample2.posCount.txt	outputSample2.posRPM.txt	********************outputSample2.posRPM.wig
-outputSample2.negCount.txt	outputSample2.negRPM.txt	********************outputSample2.negRPM.wig
+/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample2.posCount.txt	/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample2.posRPM.txt	********************/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample2.posRPM.wig
+/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample2.negCount.txt	/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample2.negRPM.txt	********************/mmfs1/home/mmaiensc/RiboSeq/practice_data/outputSample2.negRPM.wig
 # Converting wig to bigWig

@@ -46,7 +46,7 @@ echo "Job was submitted from: " $SLURM_SUBMIT_DIR
 # paths to scripts, data, outputs
 SCRIPTDIR="/projects/psci_shura/riboseq/RiboSeq"
 
-# modules -- for SABER; commented-out pertain to extreme
+# modules
 module purge
 module load Bowtie2
 module load BEDTools &> /dev/null

@@ -383,10 +383,20 @@ for b in $blist; do
 		# rRNA filtering
 		if [ "$ref_filter" != "" ]; then
 			echo -e "# Filtering against filter reference $ref_filter with seed $filter_seed"
-			$bowtie2 -L $filter_seed -x $out.filter -U $raw 2> $out.STDERR | $samtools view -f4 - | $samtools fastq - 2> /dev/null | gzip > $out$b.filter.fastq.gz
+			# save alignments to get each set
+			$bowtie2 -L $filter_seed -x $out.filter -U $raw 2> $out.STDERR | $samtools view -b > $out$b.filter.orig.bam
+			# get unmapped reads
+			$samtools view -f4 $out$b.filter.orig.bam | $samtools fastq - 2> /dev/null | gzip > $out$b.filter.fastq.gz
+			# get mapped reads
+			$samtools view -F4 $out$b.filter.orig.bam | $samtools fastq - 2> /dev/null | gzip > $out$b.mapped-to-filter.fastq.gz
+			# count hits per filter seq
+			$samtools view -F4 $out$b.filter.orig.bam | cut -f3 | sort | uniq -c | sort -gr | awk 'BEGIN{OFS="\t"; print "Filter seq","Count"}{print $2, $1}' > $out$b.mapped-to-filter.summary.txt
+			rm $out$b.filter.orig.bam
 			cat $out.STDERR
 			raw="$out$b.filter.fastq.gz"
 			check_file $raw "tmp" $b "fastq-filtered"
+			check_file "$out$b.mapped-to-filter.fastq.gz" "tmp" $b "mapped-to-filter-fastq"
+			check_file "$out$b.mapped-to-filter.summary.txt" "tmp" $b "mapped-to-filter-summary"
 
 			# count reads
 			gzip -dc $raw | wc -l | awk '{print "Reads passing alignment filter\t"$1/4}' >> $out$b.stats.txt
