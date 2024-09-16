@@ -379,7 +379,7 @@ for b in $blist; do
 			raw="$out$b.filter.fastq.gz"
 			check_file $raw "tmp" $b "fastq-filtered"
 			check_file "$out$b.mapped-to-filter.fastq.gz" "tmp" $b "mapped-to-filter-fastq"
-			check_file "$out$b.mapped-to-filter.summary.txt" "tmp" $b "mapped-to-filter-summary"
+			check_file "$out$b.mapped-to-filter.summary.txt" "out" $b "mapped-to-filter-summary"
 
 			# count reads
 			gzip -dc $raw | wc -l | awk '{print "Reads passing alignment filter\t"$1/4}' >> $out$b.stats.txt

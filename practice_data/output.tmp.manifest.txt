@@ -18,13 +18,11 @@ outputSample1_R1.fastq.gz	Sample1	fastq
 outputSample1.trim.fastq.gz	Sample1	fastq-trimmed
 outputSample1.filter.fastq.gz	Sample1	fastq-filtered
 outputSample1.mapped-to-filter.fastq.gz	Sample1	mapped-to-filter-fastq
-outputSample1.mapped-to-filter.summary.txt	Sample1	mapped-to-filter-summary
 outputSample1.bam	Sample1	BAM
 outputSample1.assignCount.txt	Sample1	AssignCount
 outputSample1.posCount.txt	Sample1	Psite-posCount
 outputSample1.negCount.txt	Sample1	Psite-negCount
 outputSample1.nuclBias.txt	Sample1	Psite-nuclBias
-outputSample1.lengthDist.txt	Sample1	Psite-lengthDist
 outputSample1.genesNorm.txt	Sample1	Gene_norm
 outputSample1.posRPM.wig	Sample1	pos_wig
 outputSample1.negRPM.wig	Sample1	neg_wig
@@ -32,13 +30,11 @@ outputSample2_R1.fastq.gz	Sample2	fastq
 outputSample2.trim.fastq.gz	Sample2	fastq-trimmed
 outputSample2.filter.fastq.gz	Sample2	fastq-filtered
 outputSample2.mapped-to-filter.fastq.gz	Sample2	mapped-to-filter-fastq
-outputSample2.mapped-to-filter.summary.txt	Sample2	mapped-to-filter-summary
 outputSample2.bam	Sample2	BAM
 outputSample2.assignCount.txt	Sample2	AssignCount
 outputSample2.posCount.txt	Sample2	Psite-posCount
 outputSample2.negCount.txt	Sample2	Psite-negCount
 outputSample2.nuclBias.txt	Sample2	Psite-nuclBias
-outputSample2.lengthDist.txt	Sample2	Psite-lengthDist
 outputSample2.genesNorm.txt	Sample2	Gene_norm
 outputSample2.posRPM.wig	Sample2	pos_wig
 outputSample2.negRPM.wig	Sample2	neg_wig
