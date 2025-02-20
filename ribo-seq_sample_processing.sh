@@ -29,6 +29,7 @@ genome_seed=18
 # alignment mismatches
 mismatch=2
 # psite params
+pmethod="3p"
 psite_offset=15
 min_len=24
 max_len=46
@@ -72,6 +73,13 @@ usage="USAGE:
 
 	-mis   max mismatches allowed in alignment (default $mismatch)
 
+	-Pmethod P-site detection method: '3p', '5p', or 'center' (default $pmethod)
+		 3p: P-site is Poff bases from the 3' end of the read
+		 5p: P-site is Poff bases from the 5' end of the read
+		 center: Trim Poff bases from both ends of the reads,
+		 	 assign remaining P-site weight evenly over
+			 remaining methods.
+			 Reads shorter than 2*Poff+1 will be discarded.
 	-Poff  P-site offset (default $psite_offset)
 	-Pmin  minimum read length for P-site offset (default $min_len)
 	-Pmax  maximum read length for P-site offset (default $max_len)
@@ -153,6 +161,10 @@ for (( i=1; i<= $#; i++)); do
 			mismatch="$val"
 			i=$j
 			;;
+		"-Pmethod")
+			pmethod="$val"
+			i=$j
+			;;
 		"-Poff")
 			psite_offset="$val"
 			i=$j
@@ -230,6 +242,11 @@ if [ "$flex" != "y" ]; then
 	flex=""
 else
 	flex="-f"
+fi
+# check pmethod
+if [ "$pmethod" != "3p" ] && [ "$pmethod" != "5p" ] && [ "$pmethod" != "center" ]; then
+	echo -e "Set -Pmethod to be '3p, '5p', or 'center'. '$pmethod' is not valid"
+	exit 1
 fi
 
 # if $out is undefined, pick it based on the output manifest file
@@ -420,7 +437,7 @@ for b in $blist; do
 
 		# assign p-site
 		echo -e "# Assigning p-site based on cutoff $psite_offset, for reads from $min_len to $max_len"
-		$assignCount3prime_flexible $psite_offset $out$b.assignCount.txt $out$b.posCount.txt $out$b.negCount.txt $out$b.nuclBias.txt $out$b.lengthDist.txt $min_len $max_len
+		$assignCount3prime_flexible $psite_offset $out$b.assignCount.txt $out$b.posCount.txt $out$b.negCount.txt $out$b.nuclBias.txt $out$b.lengthDist.txt $min_len $max_len $pmethod
 		check_file $out$b.posCount.txt "tmp" $b "Psite-posCount"
 		check_file $out$b.negCount.txt "tmp" $b "Psite-negCount"
 		check_file $out$b.nuclBias.txt "tmp" $b "Psite-nuclBias"

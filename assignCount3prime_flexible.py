@@ -3,6 +3,7 @@
 Created on Apr 25, 2011
 Finished on Apr 25, 2011
 Edited on Apr 27, 2011
+Edited Feb 20, 2025 by Mark Maienschein-Cline to allow different methods of p-site offset
 @author: eugeneoh
 Count number of reads (weighted by the central residues) that have aligned to the genome.
 Also count the number of these central residues each time for other analyses.
@@ -29,8 +30,8 @@ class AlignedReads:
                                       self.fiveprime, self.strand, self.mismatch)
         
 '''original counts: minbound=24,maxbound=46'''
-def assignCount(distance,filename,minbound,maxbound):
-    '''Count by 3prime minus distance'''
+def assignCount(distance,filename,minbound,maxbound,pmethod):
+    '''Count by 3prime minus distance or 5prime plus distance or centered'''
     f=open(filename,'r')
     forward={}
     reverse={}
@@ -39,20 +40,54 @@ def assignCount(distance,filename,minbound,maxbound):
         x=AlignedReads(fields[0], int(fields[1]), int(fields[2]), int(fields[3]), \
                        fields[4], int(fields[5]))
         if x.uniqueness==1 and minbound<x.length<maxbound and x.mismatch<3:
-            if x.strand=='+':
-                i=x.fiveprime+x.length-1-int(distance)
-                if i in forward:
-                	forward[i][0]+=1.0
-                	forward[i][1]+=1
-                else: 
-                    forward[i]=[1.0,1] 
-            elif x.strand=='-':
-                j=x.fiveprime-x.length+1+int(distance)
-                if j in reverse:
-                	reverse[j][0]+=1.0
-                	reverse[j][1]+=1
-                else: 
-                    reverse[j]=[1.0,1]
+            if pmethod=="3p":
+                if x.strand=='+':
+                    i=x.fiveprime+x.length-1-int(distance)
+                    if i in forward:
+                    	forward[i][0]+=1.0
+                    	forward[i][1]+=1
+                    else: 
+                        forward[i]=[1.0,1] 
+                elif x.strand=='-':
+                    j=x.fiveprime-x.length+1+int(distance)
+                    if j in reverse:
+                    	reverse[j][0]+=1.0
+                    	reverse[j][1]+=1
+                    else: 
+                        reverse[j]=[1.0,1]
+            if pmethod=="5p":
+                if x.strand=='+':
+                    i=x.fiveprime+int(distance)
+                    if i in forward:
+                    	forward[i][0]+=1.0
+                    	forward[i][1]+=1
+                    else: 
+                        forward[i]=[1.0,1] 
+                elif x.strand=='-':
+                    j=x.fiveprime-int(distance)
+                    if j in reverse:
+                    	reverse[j][0]+=1.0
+                    	reverse[j][1]+=1
+                    else: 
+                        reverse[j]=[1.0,1]
+            if pmethod=="center":
+                start=x.fiveprime+int(distance)
+                end=x.fiveprime+x.length-int(distance)
+                size=end-start
+                if size >= 1:
+                    for i in range(start,end):
+                        if x.strand=='+':
+                            if i in forward:
+                    	        forward[i][0]+=1.0/size
+                    	        forward[i][1]+=1.0/size
+                            else: 
+                                forward[i]=[1.0/size,1.0/size] 
+                        if x.strand=='-':
+                            if i in reverse:
+                    	        reverse[i][0]+=1.0/size
+                    	        reverse[i][1]+=1.0/size
+                            else: 
+                                reverse[i]=[1.0/size,1.0/size]
     f.close()
     
     return forward,reverse
@@ -93,10 +128,10 @@ def lengthDistribution(filename,minbound=0,maxbound=46):
     #print sorted(d.items())
     return d    
     
-def writeFiles(distance,filename,output1,output2,output3,output4,minbound,maxbound):
+def writeFiles(distance,filename,output1,output2,output3,output4,minbound,maxbound,pmethod):
     '''Write physical text files
        output1=forward_strand; output2=reverse_strand; output3=bias_freq; output4=length_dist'''    
-    (forward,reverse)=assignCount(distance,filename,minbound,maxbound)
+    (forward,reverse)=assignCount(distance,filename,minbound,maxbound,pmethod)
     f=open(output1,'w')
     for l in sorted(forward.items()):
         f.write(str(l[0])+'\t'+str(l[1][0])+'\t'+str(l[1][1])+'\n')
@@ -130,7 +165,8 @@ if __name__ == '__main__':
 	dist=sys.argv[1]
 	minbound=int(sys.argv[7])
 	maxbound=int(sys.argv[8])
-	writeFiles(dist,file,o1,o2,o3,o4,minbound,maxbound)
+	pmethod=sys.argv[9]
+	writeFiles(dist,file,o1,o2,o3,o4,minbound,maxbound,pmethod)
 	
     ### Change these variables as desired ###
     # date=sys.argv[1] 
