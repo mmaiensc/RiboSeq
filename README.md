@@ -119,17 +119,19 @@ In general, shorter seeds will provide more sensitive alignments, and will work 
 
 **Maximum mismathces allowed in alignment (-mis)** Any alignments with more than this many mismatches are discarded. They will be included in the .bam file, but not in the .assignCount.txt intermediate file (type "AssignCount" in the secondard output manifest).
 
-**P-site method (-Pmethod)** Method to use in calculating P-site. Can be '3p' (3-prime, default), '5p', or 'center'.
+**P-site method (-Pmethod)** Method to use in calculating P-site. Can be `3p` (3-prime, default), `5p`, or `center`.
 
-The 'center' option will trim Poff bases from either end and assign weight of the read fractionally across all remaining bases. For example, if a read is 32bp, is aligned to position 10, and Poff is 15, then positions 25 and 26 will each be given 0.5 counts from the read. Reads that are shorter than 2*Poff+1 will be discarded regardless of -Pmin and -Pmax settings.
+The `center` option will trim Poff bases from either end and assign weight of the read fractionally across all remaining bases. For example, if a read is 32bp, is aligned to position 10, and Poff is 15, then positions 25 and 26 will each be given 0.5 counts from the read. Reads that are shorter than 2*Poff+1 will be discarded regardless of -Pmin and -Pmax settings.
 
-Definitions, given alignment start 'astart', alignment length 'alen', and P offset 'Poff':
+Definitions, given alignment start `astart`, alignment length `alen`, and P offset `Poff`:
 
+```
 3p: P = astart + alen - 1 - Poff
 5p: P = astart + Poff
-Center: P = (astart + Poff) through (astart + alen - 1 - Poff), inclusive
+center: P = (astart + Poff) through (astart + alen - 1 - Poff), inclusive
+```
 
-**P-site offset (-Poff)** Offset to use to find P-site.
+**P-site offset (-Poff)** Offset to use to find P-site. See `-Pmethod` for details.
 
 **Minimum read length for P-site offset (-Pmin)** Reads shorter than this will be excluded from the analysis.
 
