@@ -26,6 +26,7 @@ hard3="5"
 Fseed="10"
 Gseed="18"
 mis="2"
+Pmethod="3p"
 Poff="15"
 Pmin="24"
 Pmax="46"
@@ -71,6 +72,7 @@ $SCRIPTDIR/ribo-seq_sample_processing.sh \
 	-Fseed $Fseed \
 	-Gseed $Gseed \
 	-mis $mis \
+	-Pmethod $Pmethod \
 	-Poff $Poff \
 	-Pmin $Pmin \
 	-Pmax $Pmax \
