@@ -453,9 +453,9 @@ for b in $blist; do
 		echo -e "# RPM normalization"
 		$rpm $out$b.genes.txt 5 $out$b.posCount.txt $out$b.negCount.txt 2 $gname $out$b.posRPM.txt $out$b.posRPM.wig $out$b.negRPM.txt $out$b.negRPM.wig
 		check_file $out$b.posRPM.txt "out" $b "Gene_posRPM"
-		check_file $out$b.posRPM.wig "tmp" $b "pos_wig"
+		check_file $out$b.posRPM.wig "out" $b "pos_wig"
 		check_file $out$b.negRPM.txt "out" $b "Gene_negRPM"
-		check_file $out$b.negRPM.wig "tmp" $b "neg_wig"
+		check_file $out$b.negRPM.wig "out" $b "neg_wig"
 
 		# convert to bigWig
 		echo -e "# Converting wig to bigWig"
