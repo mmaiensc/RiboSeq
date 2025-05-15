@@ -39,9 +39,11 @@ usage="USAGE:
 	REQUIRED:
 	-f  fastq data (can be zipped)
 	-b  barcodes list (tab-delimited text)
-	    format: 1 barcode per line. Optionally include a second column with the output sample name.
-	    set this value to 'SKIP' (instead of a file name) to skip demultiplexing. Then will use
-	    'sample' as the same name.
+	    Format: 1 barcode per line. Optionally include a second column with the output sample name.
+
+	    Set this value to 'SKIP' (instead of a file name) to skip demultiplexing. Then it will use
+	    'sample' as the same name. (Actually, providing anything that's not a valid file name will
+	    have the same effect)
 	-G  reference genome file (fasta)
 	-A  reference annotation file
 	    format: [ID] [start] [end] [strand] [name]
@@ -368,7 +370,7 @@ awk -F "\t" '{OFS="\t"; $2++; print }' < $ref_genome.fai > $ref_genome.tmp && mv
 gname=$(head -1 $ref_genome | cut -f1 -d ' ' | sed 's/>//')
 
 # demultiplexing
-if [ "$barcodes" != "SKIP" ]; then
+if [ -f "$barcodes" ]; then
 	echo -e "\n#\n# Demultiplexing\n#"
 	$split_fastq_by_barcode_in_read -i $barcodes -r1 $fastq -o $out > $out.demultiplexing_report.txt $flex
 	check_file $out.demultiplexing_report.txt "out" "All" "Report"
@@ -376,6 +378,7 @@ if [ "$barcodes" != "SKIP" ]; then
 	# get list of outputs
 	blist=$(cat $barcodes | awk '{print $NF}')
 else
+	echo -e "\n#\n# NOTE: Skipping demultiplexing, all reads will belong to the same sample named 'Sample'\n#"
 	blist="sample"
 	ln -sf $fastq ${out}sample_R1.fastq.gz
 fi
@@ -392,7 +395,7 @@ for b in $blist; do
 	check_file $raw "tmp" $b "fastq"
 
 	# skip if empty
-	if [ "$barcodes" != "SKIP" ]; then
+	if [ -f "$barcodes" ]; then
 		count=$(awk -v name="$b" '{if($1==name) print $2}' < $out.demultiplexing_report.txt)
 	else
 		count=$(($minreads+1))
