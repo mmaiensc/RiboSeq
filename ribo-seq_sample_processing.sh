@@ -39,7 +39,9 @@ usage="USAGE:
 	REQUIRED:
 	-f  fastq data (can be zipped)
 	-b  barcodes list (tab-delimited text)
-	    format: 1 barcode per line. Optionally include a second column with the output sample name
+	    format: 1 barcode per line. Optionally include a second column with the output sample name.
+	    set this value to 'SKIP' (instead of a file name) to skip demultiplexing. Then will use
+	    'sample' as the same name.
 	-G  reference genome file (fasta)
 	-A  reference annotation file
 	    format: [ID] [start] [end] [strand] [name]
@@ -366,12 +368,17 @@ awk -F "\t" '{OFS="\t"; $2++; print }' < $ref_genome.fai > $ref_genome.tmp && mv
 gname=$(head -1 $ref_genome | cut -f1 -d ' ' | sed 's/>//')
 
 # demultiplexing
-echo -e "\n#\n# Demultiplexing\n#"
-$split_fastq_by_barcode_in_read -i $barcodes -r1 $fastq -o $out > $out.demultiplexing_report.txt $flex
-check_file $out.demultiplexing_report.txt "out" "All" "Report"
-
-# get list of outputs
-blist=$(cat $barcodes | awk '{print $NF}')
+if [ "$barcodes" != "SKIP" ]; then
+	echo -e "\n#\n# Demultiplexing\n#"
+	$split_fastq_by_barcode_in_read -i $barcodes -r1 $fastq -o $out > $out.demultiplexing_report.txt $flex
+	check_file $out.demultiplexing_report.txt "out" "All" "Report"
+	
+	# get list of outputs
+	blist=$(cat $barcodes | awk '{print $NF}')
+else
+	blist="sample"
+	ln -sf $fastq ${out}sample_R1.fastq.gz
+fi
 
 #
 # processing per sample
@@ -385,7 +392,11 @@ for b in $blist; do
 	check_file $raw "tmp" $b "fastq"
 
 	# skip if empty
-	count=$(awk -v name="$b" '{if($1==name) print $2}' < $out.demultiplexing_report.txt)
+	if [ "$barcodes" != "SKIP" ]; then
+		count=$(awk -v name="$b" '{if($1==name) print $2}' < $out.demultiplexing_report.txt)
+	else
+		count=$(($minreads+1))
+	fi
 	if (( $count >= $minreads )); then
 		# start a QC file
 		echo -e "Raw reads\t$count" > $out$b.stats.txt
