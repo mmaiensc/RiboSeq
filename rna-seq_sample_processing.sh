@@ -289,6 +289,12 @@ function find {
 }
 
 #
+# fix barcodes file if in dos format
+#
+reline=$(find reline.pl)
+reline.pl $barcodes > ${barcodes}.tmp && mv ${barcodes}.tmp $barcodes
+
+#
 # start the pipeline
 #
 # load dependencies
