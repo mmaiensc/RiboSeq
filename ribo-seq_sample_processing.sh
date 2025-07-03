@@ -295,9 +295,9 @@ function check_file {
 	fi
 	# append file to list
 	if [ "$2" = "tmp" ]; then
-		echo -e "$1\t$3\t$4" | sed "s!$out_dir/!!g" >> $tmp_manifest
+		echo -e "$1\t$3\t$4" | sed "s!$out_dir/*!!g" >> $tmp_manifest
 	elif [ "$2" = "out" ]; then
-		echo -e "$1\t$3\t$4" | sed "s!$out_dir/!!g" >> $out_manifest
+		echo -e "$1\t$3\t$4" | sed "s!$out_dir/*!!g" >> $out_manifest
 	fi
 }
 
