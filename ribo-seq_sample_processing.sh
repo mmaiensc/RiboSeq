@@ -332,8 +332,11 @@ function find {
 #
 # fix barcodes file if in dos format
 #
-reline=$(find reline.pl)
-reline.pl $barcodes > ${barcodes}.tmp && mv ${barcodes}.tmp $barcodes
+if [ -f "$barcodes" ]; then
+	reline=$(find reline.pl)
+	$reline $barcodes | sed 's/ /_/g' > $out.barcodes
+	check_file $out.barcodes "tmp" "Reference" "Adjusted barcodes"
+fi
 
 #
 # start the pipeline
@@ -378,11 +381,11 @@ gname=$(head -1 $ref_genome | cut -f1 -d ' ' | sed 's/>//')
 # demultiplexing
 if [ -f "$barcodes" ]; then
 	echo -e "\n#\n# Demultiplexing\n#"
-	$split_fastq_by_barcode_in_read -i $barcodes -r1 $fastq -o $out > $out.demultiplexing_report.txt $flex
+	$split_fastq_by_barcode_in_read -i $out.barcodes -r1 $fastq -o $out > $out.demultiplexing_report.txt $flex
 	check_file $out.demultiplexing_report.txt "out" "All" "Report"
 	
 	# get list of outputs
-	blist=$(cat $barcodes | awk '{print $NF}')
+	blist=$(cat $out.barcodes | awk '{print $NF}')
 else
 	echo -e "\n#\n# NOTE: Skipping demultiplexing, all reads will belong to the same sample named 'Sample'\n#"
 	blist="sample"
